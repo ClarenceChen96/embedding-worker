@@ -2,6 +2,14 @@
 
 import os
 
+from huggingface_hub import login
+
+# Authenticate with HuggingFace before loading model
+hf_token = os.environ.get("HF_TOKEN")
+if hf_token:
+    login(token=hf_token)
+    print("HuggingFace authentication successful")
+
 import runpod
 from sentence_transformers import SentenceTransformer
 
