@@ -1,14 +1,11 @@
-FROM nvidia/cuda:12.4.1-cudnn-runtime-ubuntu22.04
+FROM python:3.11-slim
 
 RUN apt-get update && apt-get install -y \
-    python3.11 \
-    python3-pip \
-    && ln -sf /usr/bin/python3.11 /usr/bin/python \
-    && ln -sf /usr/bin/pip3 /usr/bin/pip \
+    git \
     && rm -rf /var/lib/apt/lists/*
 
-# Install torch with CUDA support first
-RUN pip install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cu124
+# Install CPU-only torch
+RUN pip install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cpu
 
 # Install remaining dependencies
 COPY requirements.txt /requirements.txt
